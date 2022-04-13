@@ -14,9 +14,11 @@ import { debug } from './utils'
 export function compileInput(input: string, options: CompileOptions) {
 	debug.compile('Compiling input:', { input, options })
 
-	const log = options.building
-		? (text: string) => console.log(`${c.cyan(c.bold('mjml'))} - ${text}`)
-		: (text: string) => options.logger.info(text, { timestamp: true })
+	const log = options.log === false
+		? () => {}
+		: options.building
+			? (text: string) => console.log(`${c.cyan(c.bold('mjml'))} - ${text}`)
+			: (text: string) => options.logger.info(text, { timestamp: true })
 
 	const content = fs.readFileSync(input, 'utf-8')
 
@@ -26,6 +28,7 @@ export function compileInput(input: string, options: CompileOptions) {
 			.replace(options.input, options.output)
 			.replace('.mjml', options.extension)
 
+		fs.mkdirSync(path.dirname(outputFile), { recursive: true })
 		fs.writeFileSync(outputFile, result.html)
 
 		log(c.gray(`${input} -> ${outputFile} (${fs.statSync(outputFile).size} B)`))
@@ -54,6 +57,7 @@ export default function(options: Partial<Options> = {}): Plugin {
 				extension: '.blade.php',
 				logger: config.logger,
 				building: config.command === 'build',
+				log: true,
 				watch: true,
 				...options,
 			}
