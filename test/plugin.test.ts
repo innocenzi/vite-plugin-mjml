@@ -19,11 +19,30 @@ test('it compiles', async() => {
 			mjml({
 				log: false,
 				extension: '.html',
-				input: fixtures,
+				input: path.resolve(fixtures, 'valid'),
 				output,
 			}),
 		],
-	}) as any
+	})
 
 	expect(fs.existsSync(path.resolve(output, 'mail', 'mail.html'))).toBe(true)
+})
+
+test('it throws on compilation errors', async() => {
+	expect(fs.existsSync(output)).toBe(false)
+
+	await expect(async() => await build({
+		root: fixtures,
+		logLevel: 'silent',
+		plugins: [
+			mjml({
+				log: false,
+				extension: '.html',
+				input: path.resolve(fixtures, 'invalid'),
+				output,
+			}),
+		],
+	})).rejects.toThrow('Malformed MJML. Check that your structure is correct and enclosed in <mjml> tags.')
+
+	expect(fs.existsSync(output)).toBe(false)
 })
