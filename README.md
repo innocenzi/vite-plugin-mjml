@@ -62,5 +62,5 @@ Similarly, when building for production, all files in `input` will be compiled a
 	·
 	<br />
 	<br />
-	<sub>Built with ❤︎ by <a href="https://github.com/enzoinnocenzi">Enzo Innocenzi</a>
+	<sub>Built with ❤︎ by <a href="https://twitter.com/enzoinnocenzi">Enzo Innocenzi</a>
 </p>
