@@ -64,7 +64,7 @@ export default function(options: Partial<Options> = {}): Plugin {
 
 			debug.mjml('Configuration resolved:', compileOptions)
 		},
-		async buildEnd() {
+		async buildStart() {
 			let input: string = compileOptions.input
 
 			if (compileOptions.input.includes('*')) {
