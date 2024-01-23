@@ -5,6 +5,7 @@ export interface Options {
 	input: string
 	output: string
 	extension: string
+	exclude: string
 	watch: boolean
 	log: boolean
 	mjml?: MJMLParsingOptions
