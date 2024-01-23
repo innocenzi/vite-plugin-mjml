@@ -77,7 +77,6 @@ export default function(options: Partial<Options> = {}): Plugin {
 			const files = await fg(input)
 			debug.mjml('Compiling MJML files:', { input, files })
 			files.forEach((file) => {
-        // Vérifier si le fichier ne contient pas la valeur de compileOptions.exclude
 				if (!file.includes(compileOptions.exclude)) {
 					compileInput(file, compileOptions);
 				}
