@@ -28,6 +28,27 @@ test('it compiles', async() => {
 	expect(fs.existsSync(path.resolve(output, 'mail', 'mail.html'))).toBe(true)
 })
 
+test('it can exclude directories', async() => {
+	expect(fs.existsSync(output)).toBe(false)
+
+	await build({
+		root: fixtures,
+		logLevel: 'silent',
+		plugins: [
+			mjml({
+				log: false,
+				extension: '.html',
+				input: path.resolve(fixtures, 'has-excludes'),
+				output,
+				exclude: [path.resolve(fixtures, 'has-excludes', 'partials')],
+			}),
+		],
+	})
+
+	expect(fs.existsSync(path.resolve(output, 'mail', 'mail.html'))).toBe(true)
+	expect(!fs.existsSync(path.resolve(output, 'partials', '_foo.html'))).toBe(true)
+})
+
 test('it throws on compilation errors', async() => {
 	expect(fs.existsSync(output)).toBe(false)
 
