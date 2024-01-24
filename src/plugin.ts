@@ -55,7 +55,7 @@ export default function(options: Partial<Options> = {}): Plugin {
 				input: 'resources/mail',
 				output: 'resources/views/emails',
 				extension: '.blade.php',
-				exclude: '',
+				exclude: [],
 				logger: config.logger,
 				building: config.command === 'build',
 				log: true,
@@ -74,13 +74,16 @@ export default function(options: Partial<Options> = {}): Plugin {
 				input = path.join(compileOptions.input, '**/*.mjml').replace(/\\/g, '/')
 			}
 
+			const excludes = Array.isArray(compileOptions.exclude)
+				? compileOptions.exclude
+				: [compileOptions.exclude]
 			const files = await fg(input)
 			debug.mjml('Compiling MJML files:', { input, files })
 			files.forEach((file) => {
-				if (!file.includes(compileOptions.exclude)) {
-					compileInput(file, compileOptions);
+				if (!excludes.some((exclude) => file.startsWith(exclude))) {
+					compileInput(file, compileOptions)
 				}
-			});
+			})
 		},
 		configureServer(server) {
 			if (compileOptions.watch === false) {
