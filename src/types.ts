@@ -1,4 +1,4 @@
-import { MJMLParsingOptions } from 'mjml-core'
+import { MJMLParsingOptions, MJMLMinifyOptions } from 'mjml-core'
 import { Logger } from 'vite'
 
 export interface Options {
@@ -9,6 +9,12 @@ export interface Options {
 	watch: boolean
 	log: boolean
 	mjml?: MJMLParsingOptions
+	minify?: boolean
+	minifyOptions?: MJMLMinifyOptions
+	validationLevel?: 'strict' | 'soft' | 'skip'
+	filePath?: string
+	ignoreIncludes?: boolean
+	useMjmlConfigOptions?: boolean
 }
 
 export interface CompileOptions extends Options {

@@ -11,7 +11,7 @@ import { debug } from './utils'
 /**
  * Compiles the given MJML file.
  */
-export function compileInput(input: string, options: CompileOptions) {
+export async function compileInput(input: string, options: CompileOptions) {
 	debug.compile('Compiling input:', { input, options })
 
 	const log = options.log === false
@@ -23,7 +23,15 @@ export function compileInput(input: string, options: CompileOptions) {
 	const content = fs.readFileSync(input, 'utf-8')
 
 	try {
-		const result = mjml(content, options.mjml)
+		const result = await mjml(content, {
+			...options.mjml,
+			minify: options.minify,
+			minifyOptions: options.minifyOptions,
+			validationLevel: options.validationLevel,
+			filePath: options.filePath,
+			ignoreIncludes: options.ignoreIncludes,
+			useMjmlConfigOptions: options.useMjmlConfigOptions,
+		})
 		const outputFile = input
 			.replace(options.input, options.output)
 			.replace('.mjml', options.extension)
@@ -79,11 +87,11 @@ export default function(options: Partial<Options> = {}): Plugin {
 				: [compileOptions.exclude]
 			const files = await fg(input)
 			debug.mjml('Compiling MJML files:', { input, files })
-			files.forEach((file) => {
-				if (!excludes.some((exclude) => file.startsWith(exclude))) {
-					compileInput(file, compileOptions)
-				}
-			})
+			await Promise.all(
+				files
+					.filter((file) => !excludes.some((exclude) => file.startsWith(exclude)))
+					.map((file) => compileInput(file, compileOptions)),
+			)
 		},
 		configureServer(server) {
 			if (compileOptions.watch === false) {
@@ -91,18 +99,18 @@ export default function(options: Partial<Options> = {}): Plugin {
 				return
 			}
 
-			function handleReload(path: string) {
-				if (!path.includes(compileOptions.input)) {
+			async function handleReload(filePath: string) {
+				if (!filePath.includes(compileOptions.input)) {
 					return
 				}
 
-				if (!path.match(/.mjml/)) {
+				if (!filePath.match(/.mjml/)) {
 					return
 				}
 
-				debug.watch(`${path} changed, compiling`)
+				debug.watch(`${filePath} changed, compiling`)
 
-				compileInput(path, compileOptions)
+				await compileInput(filePath, compileOptions)
 			}
 
 			server.watcher
