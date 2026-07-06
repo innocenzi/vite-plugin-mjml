@@ -32,6 +32,7 @@ export async function compileInput(input: string, options: CompileOptions) {
 			ignoreIncludes: options.ignoreIncludes,
 			useMjmlConfigOptions: options.useMjmlConfigOptions,
 		})
+
 		const outputFile = input
 			.replace(options.input, options.output)
 			.replace('.mjml', options.extension)
