@@ -37,7 +37,6 @@ jobs:
       - name: Publish to NPM
         run: pnpm -r publish --access public --no-git-checks --provenance
 
-      - run: npx conventional-github-releaser -p angular
-        continue-on-error: true
+      - run: npx changelogithub --no-group --no-capitalize --no-emoji
         env:
-          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
