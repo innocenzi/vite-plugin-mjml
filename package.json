@@ -43,7 +43,7 @@
     "@types/mjml": "^5.4.2",
     "@types/mjml-core": "^5.1.1",
     "@types/node": "^24.19.2",
-    "bumpp": "^9.3.0",
+    "bumpp": "^12.3.0",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3",
     "unbuild": "^3.6.1",
