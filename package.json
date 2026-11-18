@@ -46,7 +46,7 @@
     "bumpp": "^9.3.0",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3",
-    "unbuild": "^2.0.0",
+    "unbuild": "^3.6.1",
     "vite": "^5.0.0",
     "vitest": "^2.0.0"
   },
