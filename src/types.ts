@@ -1,5 +1,5 @@
-import { MJMLParsingOptions, MJMLMinifyOptions } from 'mjml-core'
-import { Logger } from 'vite'
+import type { MJMLMinifyOptions, MJMLParsingOptions } from 'mjml-core'
+import type { Logger } from 'vite'
 
 export interface Options {
 	input: string

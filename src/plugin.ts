@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import fs from 'node:fs'
 import path from 'node:path'
-import { Plugin } from 'vite'
+import type { Plugin } from 'vite'
 import mjml from 'mjml'
 import fg from 'fast-glob'
 import c from 'picocolors'
@@ -54,7 +54,7 @@ export async function compileInput(input: string, options: CompileOptions) {
 	}
 }
 
-export default function(options: Partial<Options> = {}): Plugin {
+export default function (options: Partial<Options> = {}): Plugin {
 	let compileOptions: CompileOptions
 
 	return {
