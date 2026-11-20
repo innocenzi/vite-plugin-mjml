@@ -38,7 +38,7 @@
     "picocolors": "^1.0.0"
   },
   "devDependencies": {
-    "@innocenzi/eslint-config": "^0.21.2",
+    "@innocenzi/eslint-config": "^0.22.8",
     "@types/debug": "^4.1.12",
     "@types/mjml": "^5.4.2",
     "@types/mjml-core": "^5.1.1",
