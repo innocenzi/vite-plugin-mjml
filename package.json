@@ -48,7 +48,7 @@
     "typescript": "^5.3.3",
     "unbuild": "^3.6.1",
     "vite": "^8.3.8",
-    "vitest": "^2.0.0"
+    "vitest": "^5.1.1"
   },
   "engines": {
     "node": ">=24.0.0"
