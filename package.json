@@ -42,7 +42,7 @@
     "@types/debug": "^4.1.12",
     "@types/mjml": "^5.4.2",
     "@types/mjml-core": "^5.1.1",
-    "@types/node": "^24.19.2",
+    "@types/node": "^25.9.9",
     "bumpp": "^12.3.0",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3",
